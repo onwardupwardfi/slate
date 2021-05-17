@@ -1,22 +1,31 @@
 # Errors
 
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
+Our API returns standard HTTP success or error status codes. For errors, we will also include extra information about what went wrong encoded in the response as JSON. The various HTTP status codes we might return are listed below.
 
-The Kittn API uses the following error codes:
+In general: Codes in the 2xx range indicate success. Codes in the 4xx range indicate an error that failed given the information provided (e.g., a required parameter was omitted). Codes in the 5xx range indicate an error with OneDB's servers (these are rare).
 
 
-Error Code | Meaning
----------- | -------
-400 | Bad Request -- Your request is invalid.
-401 | Unauthorized -- Your API key is wrong.
-403 | Forbidden -- The kitten requested is hidden for administrators only.
-404 | Not Found -- The specified kitten could not be found.
-405 | Method Not Allowed -- You tried to access a kitten with an invalid method.
-406 | Not Acceptable -- You requested a format that isn't json.
-410 | Gone -- The kitten requested has been removed from our servers.
-418 | I'm a teapot.
-429 | Too Many Requests -- You're requesting too many kittens! Slow down!
-500 | Internal Server Error -- We had a problem with our server. Try again later.
-503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
+## HTTP Status Codes
+
+Code | Title | Description
+--------- | ------- | -----------
+200 | OK | Everything worked as expected.
+400 | Bad Request | The request was unacceptable, often due to missing a required parameter.
+401 | Unauthorized | No valid API key provided
+402 | Request Failed | The parameters were valid but the request failed.
+404 | Not Found | The requested resource doesn't exist
+409 | Conflict | The request conflicts with another request (perhaps due to using the same idempotent key).
+429 | Too Many Requests | Too many requests hit the API too quickly. We recommend an exponential backoff of your requests.
+500,502,503,504 | Server Errors | Something went wrong on Upward's end.
+
+## Error types
+
+Type | Description
+--------- | ---------
+api_connection |	Failure to connect to Upward's API.
+api_error	| API errors cover any other type of problem (e.g., a temporary problem with our servers), and are extremely uncommon.
+authentication_error |	Failure to properly authenticate yourself in the request.
+invalid_request	| Invalid request errors arise when your request has invalid parameters.
+rate_limit_exceeded	| Too many requests hit the API too quickly.
+validation_error	| Unable to validate POST/PUT
+not_found	| Resource was not found.
