@@ -206,7 +206,15 @@ curl "http://api.upwardfi.com/customer-enrollment" \
 
 # Widget Installation
 
-Upward's widget is a front-end UI element that allows customers to grant your application access to their work accounts. It can be displayed on any part of your application.
+Upward's widget is a front-end UI element that allows customers to grant your application access to their work accounts and to set up automated payments directly from their paychecks. It can be displayed on any part of your application.
+
+### Config parameters
+
+Parameter | Type | Description
+--------- | ------- | -----------
+pluginKey *required* | string | unique key corresponding to their application
+apiHost *required* | string | Link to API environment (Sandbox/Production)
+partnerEnrollmentId *required* | string | Enrollment key that is returned from calling the Customer Enrollment API
 
 ```javascript
 <!DOCTYPE html>
