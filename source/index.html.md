@@ -73,6 +73,13 @@ Parameter | Type | Description
 --------- | ------- | -----------
 employer_name *required* | string | Customer employer name
 
+### Response
+
+Parameter | Type | Description
+--------- | ------- | -----------
+access_employment_data | boolean | Returns whether payroll data can be accessed.
+support_direct_deposit | boolean | Returns whether payments can be set up.
+
 ```shell
 curl "http://api.upwardfi.com/check-employer-eligibility" \
   -H "Authorization Bearer: base64(app_id:app_secret)" \
@@ -131,6 +138,12 @@ required_net_income *optional* | string | customer net income
 return_w2_data *optional* | boolean | Specify true if customer w2 data must be returned
 return_paystubs *optional* | boolean | Specify true if link to customer paystubs must be returned
 
+### Response
+
+Parameter | Type | Description
+--------- | ------- | -----------
+enrollment_id | string | Returns enrollment id.
+
 
 ```shell
 curl "http://api.upwardfi.com/customer-enrollment" \
@@ -155,7 +168,7 @@ curl "http://api.upwardfi.com/customer-enrollment" \
 
 ```json
 {
-  "partner_enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
+  "enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
 }
 ```
 
@@ -180,6 +193,13 @@ pay_data_duration *optional* | string | Number of days of payroll history
 return_w2_data *optional* | boolean | Specify true if customer w2 data must be returned
 return_paystubs *optional* | boolean | Specify true if link to customer paystubs must be returned
 
+### Response
+
+Parameter | Type | Description
+--------- | ------- | -----------
+enrollment_id | string | Returns enrollment id.
+
+
 ```shell
 curl "http://api.upwardfi.com/customer-enrollment" \
   -H "Authorization Bearer: base64(app_id:app_secret)" \
@@ -200,7 +220,7 @@ curl "http://api.upwardfi.com/customer-enrollment" \
 
 ```json
 {
-  "partner_enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
+  "enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
 }
 ```
 
@@ -214,7 +234,19 @@ Parameter | Type | Description
 --------- | ------- | -----------
 pluginKey *required* | string | unique key corresponding to their application
 apiHost *required* | string | Link to API environment (Sandbox/Production)
-partnerEnrollmentId *required* | string | Enrollment key that is returned from calling the Customer Enrollment API
+enrollmentId *required* | string | Enrollment key that is returned from calling the Customer Enrollment API
+distibutionAmount *optional* | string | Amount allocated from income towards your product.
+
+### Response
+
+Parameter | Type | Description
+--------- | ------- | -----------
+customer_id | string | unique customer id
+employment_data | array | list of customer profile info and employment history
+income_history | array | list of paycheck data 
+direct_deposit | array | list of direct deposit accounts
+documents | array | list of links to document (w2/paystubs) locations 
+
 
 ```javascript
 <!DOCTYPE html>
@@ -228,8 +260,9 @@ partnerEnrollmentId *required* | string | Enrollment key that is returned from c
   <script type="text/javascript">
     upwardLink.create({
       pluginKey: 'your_plugin_key',
-      apiHost: 'https://api-sandbox.upward.io/v1',
-      partnerEnrollmentId: 'key_from_enrollment_api'
+      apiHost: 'https://api-sandbox.upwardfi.com',
+      enrollmentId: 'key_from_enrollment_api',
+      distibutionAmount: 'distribution_dollar_amount'
     });
     upwardLink.open();
   </script>
