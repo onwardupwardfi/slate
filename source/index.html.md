@@ -19,7 +19,11 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to Upward API! You can use our API to onboard your products and enroll customers via Upward's widget.
+Welcome to Upward - a seamless integration to setting up automated payments directly from your customer's income. You can inititiate enrollment by calling Upward's API endpoints and displaying the widget.
+
+This API reference provides information on available endpoints and how to interact with it.
+
+Upward's API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. All requests should be over SSL. All request and response bodies, including errors are encoded in JSON.
 
 # API Keys
 
@@ -39,7 +43,7 @@ Authentication to the API is performed via HTTP Basic Auth. Provide your API key
 
 If you need to authenticate via bearer auth (e.g., for a cross-origin request), use -H "Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"
 
-curl -X GET https://api.onedb.xyz/accounts/193954b0-0ae8-5db7-b640-8110afe56438 \
+curl -X GET https://api.upwardfi.com//accounts/193954b0-0ae8-5db7-b640-8110afe56438 \
   -H "Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"
 All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
 
@@ -54,6 +58,151 @@ curl "http://api.upwardfi.com/" \
 # Rate limiting
 
 Upward's API are rate limited to prevent abuse that would degrade our ability to maintain consistent API performance for all users. By default, each API key or app is rate limited at 10,000 requests per hour. If your requests are being rate limited, HTTP response code 429 will be returned with an rate_limit_exceeded error.
+
+# Employer Eligibility Check API
+
+This API can be used to check if the customer's employer is supported by Upward before moving onto enrollment.
+
+### HTTP Request
+
+`GET http://api.upwardfi.com/check-employer-eligibility`
+
+### Arguments
+
+Parameter | Type | Description
+--------- | ------- | -----------
+employer_name *required* | string | Customer employer name
+
+```shell
+curl "http://api.upwardfi.com/check-employer-eligibility" \
+  -H "Authorization Bearer: base64(app_id:app_secret)" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "employer_name": "Walmart"
+  }'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "access_employment_data": true,
+  "support_direct_deposit": true
+}
+```
+
+# Customer Enrollment API
+
+This API initiates customer enrollment via Upward.By passing basic customer information Upward will return an enrollment key unique to the customer and current enrollment.
+
+### HTTP Request
+
+`POST http://api.upwardfi.com/customer-enrollment`
+
+### Arguments
+
+Parameter | Type | Description
+--------- | ------- | -----------
+email *required* | string | Email id of customer
+first_name *required* |string | First Name
+last_name *required* | string | Last Name
+ssn *required* | string | Social Security Number
+street *required* | string | Street address
+city *required* | string | City
+state *required* | string | State
+zip5 *required* | string | Zip code
+country *required* | string | Country
+partner_product_id *required* | string | Your product id as seen in your portal
+employer *optional* | string | Customer employer name
+phone_number *optional* | string | Phone number
+date_of_birth *optional* | string | Date of birth
+payment_amount *optional* | string | Recurring amount to be paid to you by the customer
+payment_frequency *optional* | string | Frequency interval that customer will make payments
+first_payment_date *optional* | string | Date of first payment
+application_reference_number *optional* | string | Loan application number
+account_reference_number *optional* | string | Your account reference number
+bank_routing_number *optional* | string | Your bank routing number
+bank_account_number *optional* | string | Your bank account number
+bank_account_type *optional* | string | Your bank account type
+days_until_expires *optional* | string | Number of days before this connection expires
+required_employment_start_date *optional* | string | Input start date of employment
+required_gross_income *optional* | string | customer gross income
+required_net_income *optional* | string | customer net income
+return_w2_data *optional* | boolean | Specify true if customer w2 data must be returned
+return_paystubs *optional* | boolean | Specify true if link to customer paystubs must be returned
+
+
+```shell
+curl "http://api.upwardfi.com/customer-enrollment" \
+  -H "Authorization Bearer: base64(app_id:app_secret)" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "partner_product_id": "key_linked_to_partner_product",
+    "first_name": "John",
+    "last_name": "Doe",
+    "ssn": "123456789",
+    “street": "Suite 300, 400 TX-121",
+    "city": "Lewisville",
+    "state": "TX",
+    "zip5": "75056",
+    "country": "USA",
+    "email": "xyz@abc.com",
+    "payment_amt": "200.00"
+  }'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "partner_enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
+}
+```
+
+# Payroll Info API
+
+You can request to check payroll information before initiating payments through Upward.
+
+### HTTP Request
+
+`GET http://api.upwardfi.com/payroll-info`
+
+### Arguments
+
+Parameter | Type | Description
+--------- | ------- | -----------
+partner_product_id *required* | string | Your product id as seen in your portal
+email *required* | string | Email id of customer
+ssn *required* | string | Social Security Number
+employer *optional* | string | Customer employer name
+payment_compatible *optional* | string | If true, we will return payroll data only where payments can be initiated.
+pay_data_duration *optional* | string | Number of days of payroll history
+return_w2_data *optional* | boolean | Specify true if customer w2 data must be returned
+return_paystubs *optional* | boolean | Specify true if link to customer paystubs must be returned
+
+```shell
+curl "http://api.upwardfi.com/customer-enrollment" \
+  -H "Authorization Bearer: base64(app_id:app_secret)" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "partner_product_id": "key_linked_to_partner_product",
+    "email": "xyz@abc.com",
+    "ssn": "123456789",
+    "employer": "Walmart",
+    "payment_compatible_only": "True",
+    "pay_data_duration": "60",
+    "return_w2_data": "True",
+    "return_paystubs": "True"
+  }'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "partner_enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
+}
+```
 
 # Widget Installation
 
@@ -79,29 +228,92 @@ Upward's widget is a front-end UI element that allows customers to grant your ap
 </body>
 </html>
 ```
-# API calls
-
-## Get partner product ID associated with the product name
-
-### HTTP Request
-
-`GET http://api.upwardfi.com/partner-product-id/<product_name>`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-product_name | null | Name of partner product.
-
-```shell
-curl "http://api.upwardfi.com/partner-product-id/auto-finance" \
-  -H "Authorization: your_api_key"
-```
-
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "partner_product_id": 1,
+    "customer_ID": "erj4021",
+    "employment_data": [
+        {
+            "payroll_account_ID": "123456789",
+            "first_name": "John",
+            "middle_name": "",
+            "last_name": "Doe",
+            "suffix": "Mr.",
+            "ssn": "123456789",
+            "dob": "1967-04-19",
+            "street": "Suite 300 4400 TX-121",
+            "city": "Lewisville",
+            "state": "TX",
+            "zip5": "75056",
+            "country": "USA",
+            "phone_number": "4696152114",
+            "phone_type": "Mobile",
+            "email": "xyz@abc.com",
+            "employer_name": "Walmart Inc",
+            "job_title": "cashier",
+            "gross_income_amount": "30000",
+            "net_income_amount": "25000",
+            "payment_frequency": "Weekly",
+            "income_source_type": "Full-time",
+            "start_date": "2020-01-01",
+            "last_paid_date": "2020-04-16",
+            "end_date": null,
+            "employment_status": "Active"
+        }
+    ],
+    "income-history": [
+        {
+            "payroll_account_ID": "123456789",
+            "gross_amt": "610.80",
+            "net_amt": "560",
+            "currency": "dollar",
+            "paid_date": "2020-04-02"
+        },
+        {
+            "payroll_account_ID": "123456789",
+            "gross_amt": "610.00",
+            "net_amt": "560",
+            "currency": "dollar",
+            "paid_date": "2020-04-09"
+        },
+        {
+            "payroll_account_ID": "123456789",
+            "gross_amt": "610.00",
+            "net_amt": "560",
+            "currency": "dollar",
+            "paid_date": "2020-04-16"
+        }
+    ],
+    "direct-deposit-details": [
+        {
+            "payroll_account_ID": "123456789",
+            "bank_name": "JPMorgan Chase",
+            "account_type": "Checking",
+            "routing_number": "111000614",
+            "account_number": "909000614",
+            "accnt_status": "Active",
+            "allocation_type": "Percent",
+            "allocation_value": "60.00"
+        },
+        {
+            "payroll_account_ID": "123456789",
+            "bank_name": "JPMorgan Chase",
+            "account_type": "Savings",
+            "routing_number": "111000614",
+            "account_number": "909000534",
+            "accnt_status": "Active",
+            "allocation_type": "Percent",
+            "allocation_value": "40.00"
+        }
+    ],
+    "documents": [
+        {
+            "payroll_account_ID": "123456789",
+            "document_name": "W-2",
+            "document_type": "Static",
+            "customer_document_file_location": "s3://path-to-file"
+        }
+    ]
 }
 ```
