@@ -24,6 +24,9 @@ This API reference provides information on available endpoints and how to intera
 
 Upward's API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. All requests should be over SSL. All request and response bodies, including errors are encoded in JSON.
 
+```shell
+https://api.upwardfi.com
+```
 # API Keys
 
 Upward authenticates your API requests using your account’s API keys. If you do not include your key when making an API request, or use one that is incorrect or outdated, Upward returns an error.
