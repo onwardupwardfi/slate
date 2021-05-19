@@ -58,7 +58,7 @@ curl "http://api.upwardfi.com/" \
 
 Upward's API are rate limited to prevent abuse that would degrade our ability to maintain consistent API performance for all users. By default, each API key or app is rate limited at 10,000 requests per hour. If your requests are being rate limited, HTTP response code 429 will be returned with an rate_limit_exceeded error.
 
-# Employer Eligibility Check API
+<!-- # Employer Eligibility Check API
 
 This API can be used to check if the customer's employer is supported by Upward before moving onto enrollment.
 
@@ -95,7 +95,7 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
   "access_employment_data": true,
   "support_direct_deposit": true
 }
-```
+``` -->
 
 # Customer Enrollment API
 
@@ -130,10 +130,10 @@ account_reference_number *optional* | string | Your account reference number
 bank_routing_number *optional* | string | Your bank routing number
 bank_account_number *optional* | string | Your bank account number
 bank_account_type *optional* | string | Your bank account type
-days_until_expires *optional* | string | Number of days before this connection expires
-required_employment_start_date *optional* | string | Input start date of employment
-required_gross_income *optional* | string | customer gross income
-required_net_income *optional* | string | customer net income
+days_until_expires *optional* | string | Number of days before this enrollment request expires
+required_employment_start_date *optional* | string | start date of employment
+required_gross_income *optional* | number | customer gross income
+required_net_income *optional* | number | customer net income
 return_w2_data *optional* | boolean | Specify true if customer w2 data must be returned
 return_paystubs *optional* | boolean | Specify true if link to customer paystubs must be returned
 
@@ -159,7 +159,7 @@ curl "http://api.upwardfi.com/customer-enrollment" \
     "zip5": "75056",
     "country": "USA",
     "email": "xyz@abc.com",
-    "payment_amt": "200.00"
+    "payment_amt": 200.00
   }'
 ```
 
@@ -184,12 +184,12 @@ apiHost *required* | string | Link to API environment (Sandbox/Production)
 enrollmentId *required* | string | Enrollment key that is returned from calling the Customer Enrollment API
 distibutionAmount *required* | string | Amount allocated from income towards your product.
 
-### Response
+<!-- ### Response -->
 
-Parameter | Type | Description
+<!-- Parameter | Type | Description
 --------- | ------- | -----------
 customer_id | string | unique customer id
-status | string | response status
+status | string | response status -->
 
 ```javascript
 <!DOCTYPE html>
@@ -212,11 +212,11 @@ status | string | response status
 </body>
 </html>
 ```
-> The above command returns JSON structured like this:
+<!-- > The above command returns JSON structured like this:
 
 ```json
 {
     "customer_ID": "erj4021",
     "status": "success" 
 }
-```
+``` -->
