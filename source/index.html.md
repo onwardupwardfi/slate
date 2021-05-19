@@ -171,58 +171,6 @@ curl "http://api.upwardfi.com/customer-enrollment" \
 }
 ```
 
-# Payroll Info API
-
-You can request to check payroll information before initiating payments through Upward.
-
-### HTTP Request
-
-`GET http://api.upwardfi.com/payroll-info`
-
-### Arguments
-
-Parameter | Type | Description
---------- | ------- | -----------
-partner_product_id *required* | string | Your product id as seen in your portal
-email *required* | string | Email id of customer
-ssn *required* | string | Social Security Number
-employer *optional* | string | Customer employer name
-payment_compatible *optional* | string | If true, we will return payroll data only where payments can be initiated.
-pay_data_duration *optional* | string | Number of days of payroll history
-return_w2_data *optional* | boolean | Specify true if customer w2 data must be returned
-return_paystubs *optional* | boolean | Specify true if link to customer paystubs must be returned
-
-### Response
-
-Parameter | Type | Description
---------- | ------- | -----------
-enrollment_id | string | Returns enrollment id.
-
-
-```shell
-curl "http://api.upwardfi.com/customer-enrollment" \
-  -H "Authorization Bearer: base64(app_id:app_secret)" \
-  -H "Content-Type: application/json" \
-  -d $'{
-    "partner_product_id": "key_linked_to_partner_product",
-    "email": "xyz@abc.com",
-    "ssn": "123456789",
-    "employer": "Walmart",
-    "payment_compatible_only": "True",
-    "pay_data_duration": "60",
-    "return_w2_data": "True",
-    "return_paystubs": "True"
-  }'
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
-}
-```
-
 # Widget Installation
 
 Upward's widget is a front-end UI element that allows customers to grant your application access to their work accounts and to set up automated payments directly from their paychecks. It can be displayed on any part of your application.
@@ -234,18 +182,14 @@ Parameter | Type | Description
 pluginKey *required* | string | unique key corresponding to their application
 apiHost *required* | string | Link to API environment (Sandbox/Production)
 enrollmentId *required* | string | Enrollment key that is returned from calling the Customer Enrollment API
-distibutionAmount *optional* | string | Amount allocated from income towards your product.
+distibutionAmount *required* | string | Amount allocated from income towards your product.
 
 ### Response
 
 Parameter | Type | Description
 --------- | ------- | -----------
 customer_id | string | unique customer id
-employment_data | array | list of customer profile info and employment history
-income_history | array | list of paycheck data 
-direct_deposit | array | list of direct deposit accounts
-documents | array | list of links to document (w2/paystubs) locations 
-
+status | string | response status
 
 ```javascript
 <!DOCTYPE html>
@@ -273,87 +217,6 @@ documents | array | list of links to document (w2/paystubs) locations
 ```json
 {
     "customer_ID": "erj4021",
-    "employment_data": [
-        {
-            "payroll_account_ID": "123456789",
-            "first_name": "John",
-            "middle_name": "",
-            "last_name": "Doe",
-            "suffix": "Mr.",
-            "ssn": "123456789",
-            "dob": "1967-04-19",
-            "street": "Suite 300 4400 TX-121",
-            "city": "Lewisville",
-            "state": "TX",
-            "zip5": "75056",
-            "country": "USA",
-            "phone_number": "4696152114",
-            "phone_type": "Mobile",
-            "email": "xyz@abc.com",
-            "employer_name": "Walmart Inc",
-            "job_title": "cashier",
-            "gross_income_amount": "30000",
-            "net_income_amount": "25000",
-            "payment_frequency": "Weekly",
-            "income_source_type": "Full-time",
-            "start_date": "2020-01-01",
-            "last_paid_date": "2020-04-16",
-            "end_date": null,
-            "employment_status": "Active"
-        }
-    ],
-    "income-history": [
-        {
-            "payroll_account_ID": "123456789",
-            "gross_amt": "610.80",
-            "net_amt": "560",
-            "currency": "dollar",
-            "paid_date": "2020-04-02"
-        },
-        {
-            "payroll_account_ID": "123456789",
-            "gross_amt": "610.00",
-            "net_amt": "560",
-            "currency": "dollar",
-            "paid_date": "2020-04-09"
-        },
-        {
-            "payroll_account_ID": "123456789",
-            "gross_amt": "610.00",
-            "net_amt": "560",
-            "currency": "dollar",
-            "paid_date": "2020-04-16"
-        }
-    ],
-    "direct-deposit-details": [
-        {
-            "payroll_account_ID": "123456789",
-            "bank_name": "JPMorgan Chase",
-            "account_type": "Checking",
-            "routing_number": "111000614",
-            "account_number": "909000614",
-            "accnt_status": "Active",
-            "allocation_type": "Percent",
-            "allocation_value": "60.00"
-        },
-        {
-            "payroll_account_ID": "123456789",
-            "bank_name": "JPMorgan Chase",
-            "account_type": "Savings",
-            "routing_number": "111000614",
-            "account_number": "909000534",
-            "accnt_status": "Active",
-            "allocation_type": "Percent",
-            "allocation_value": "40.00"
-        }
-    ],
-    "documents": [
-        {
-            "payroll_account_ID": "123456789",
-            "document_name": "W-2",
-            "document_type": "Static",
-            "customer_document_file_location": "s3://path-to-file"
-        }
-    ]
+    "status": "success" 
 }
 ```
