@@ -382,15 +382,17 @@
 
 <p>Authentication to the API is performed via HTTP Basic Auth. Provide your API key as the basic auth username value. You do not need to provide a password.</p>
 
+<blockquote>
 <p>If you need to authenticate via bearer auth (e.g., for a cross-origin request), use -H &quot;Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)&quot;</p>
 
-<blockquote>
 <p>Example Request:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET https://api.upwardfi.com/enrollments <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"</span>
 </code></pre></div>
+<blockquote>
 <p>All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.</p>
+</blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"http://api.upwardfi.com/enrollments"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: your_api_key"</span>
