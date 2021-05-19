@@ -42,15 +42,18 @@ Authentication to the API is performed via HTTP Basic Auth. Provide your API key
 
 If you need to authenticate via bearer auth (e.g., for a cross-origin request), use -H "Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"
 
-curl -X GET https://api.upwardfi.com//accounts/193954b0-0ae8-5db7-b640-8110afe56438 \
-  -H "Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"
-All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
-
 > Example Request:
 
 ```shell
+curl -X GET https://api.upwardfi.com/enrollments \
+  -H "Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"
+  ```
+
+All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
+
+```shell
 # With shell, you can just pass the correct header with each request
-curl "http://api.upwardfi.com/" \
+curl "http://api.upwardfi.com/enrollments" \
   -H "Authorization: your_api_key"
 ```
 
@@ -103,49 +106,49 @@ This API initiates customer enrollment via Upward.By passing basic customer info
 
 ### HTTP Request
 
-`POST http://api.upwardfi.com/customer-enrollment`
+`POST http://api.upwardfi.com/enrollments`
 
 ### Arguments
 
 Parameter | Type | Description
 --------- | ------- | -----------
-email *required* | string | Email id of customer
-first_name *required* |string | First Name
-last_name *required* | string | Last Name
-ssn *required* | string | Social Security Number
-street *required* | string | Street address
-city *required* | string | City
-state *required* | string | State
-zip5 *required* | string | Zip code
-country *required* | string | Country
-partner_product_id *required* | string | Your product id as seen in your portal
-employer *optional* | string | Customer employer name
-phone_number *optional* | string | Phone number
-date_of_birth *optional* | string | Date of birth
-payment_amount *optional* | string | Recurring amount to be paid to you by the customer
-payment_frequency *optional* | string | Frequency interval that customer will make payments
-first_payment_date *optional* | string | Date of first payment
-application_reference_number *optional* | string | Loan application number
-account_reference_number *optional* | string | Your account reference number
-bank_routing_number *optional* | string | Your bank routing number
-bank_account_number *optional* | string | Your bank account number
-bank_account_type *optional* | string | Your bank account type
-days_until_expires *optional* | string | Number of days before this enrollment request expires
-required_employment_start_date *optional* | string | start date of employment
-required_gross_income *optional* | number | customer gross income
-required_net_income *optional* | number | customer net income
-return_w2_data *optional* | boolean | Specify true if customer w2 data must be returned
-return_paystubs *optional* | boolean | Specify true if link to customer paystubs must be returned
+`email` *required* | string | Email id of customer
+`first_name` *required* |string | First Name
+`last_name` *required* | string | Last Name
+`ssn` *required* | string | Social Security Number
+`street` *required* | string | Street address
+`city` *required* | string | City
+`state` *required* | string | State
+`zip5` *required* | string | Zip code
+`country` *required* | string | Country
+`partner_product_id` *required* | string | Your product id as seen in your portal
+`employer` *optional* | string | Customer employer name
+`phone_number` *optional* | string | Phone number
+`date_of_birth` *optional* | string | Date of birth
+`payment_amount` *optional* | string | Recurring amount to be paid to you by the customer
+`payment_frequency` *optional* | string | Frequency interval that customer will make payments
+`first_payment_date` *optional* | string | Date of first payment
+`application_reference_number` *optional* | string | Loan application number
+`account_reference_number` *optional* | string | Your account reference number
+`bank_routing_number` *optional* | string | Your bank routing number
+`bank_account_number` *optional* | string | Your bank account number
+`bank_account_type` *optional* | string | Your bank account type
+`days_until_expires` *optional* | string | Number of days before this enrollment request expires
+`required_employment_start_date` *optional* | string | start date of employment
+`required_gross_income` *optional* | number | customer gross income
+`required_net_income` *optional* | number | customer net income
+`return_w2_data` *optional* | boolean | Specify true if customer w2 data must be returned
+`return_paystubs` *optional* | boolean | Specify true if link to customer paystubs must be returned
 
 ### Response
 
 Parameter | Type | Description
 --------- | ------- | -----------
-enrollment_id | string | Returns enrollment id.
+`enrollment_id` | string | Returns enrollment id.
 
 
 ```shell
-curl "http://api.upwardfi.com/customer-enrollment" \
+curl "http://api.upwardfi.com/enrollments" \
   -H "Authorization Bearer: base64(app_id:app_secret)" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -159,7 +162,7 @@ curl "http://api.upwardfi.com/customer-enrollment" \
     "zip5": "75056",
     "country": "USA",
     "email": "xyz@abc.com",
-    "payment_amt": 200.00
+    "payment_amount": 200.00
   }'
 ```
 
@@ -179,10 +182,10 @@ Upward's widget is a front-end UI element that allows customers to grant your ap
 
 Parameter | Type | Description
 --------- | ------- | -----------
-pluginKey *required* | string | unique key corresponding to their application
-apiHost *required* | string | Link to API environment (Sandbox/Production)
-enrollmentId *required* | string | Enrollment key that is returned from calling the Customer Enrollment API
-distibutionAmount *required* | string | Amount allocated from income towards your product.
+`plugin_key` *required* | string | unique key corresponding to their application
+`api_host` *required* | string | Link to API environment (Sandbox/Production)
+`enrollment_id` *required* | string | Enrollment key that is returned from calling the Customer Enrollment API
+`distribution_amount` *required* | string | Amount allocated from income towards your product.
 
 <!-- ### Response -->
 
@@ -202,10 +205,10 @@ status | string | response status -->
   <script src="https://api.upwardfi.com/upward-link.js"></script>
   <script type="text/javascript">
     upwardLink.create({
-      pluginKey: 'your_plugin_key',
-      apiHost: 'https://api-sandbox.upwardfi.com',
-      enrollmentId: 'key_from_enrollment_api',
-      distibutionAmount: 'distribution_dollar_amount'
+      plugin_key: 'your_plugin_key',
+      api_host: 'https://api-sandbox.upwardfi.com',
+      enrollment_id: 'key_from_enrollment_api',
+      distribution_amount: 'distribution_dollar_amount'
     });
     upwardLink.open();
   </script>
