@@ -349,27 +349,13 @@
               </ul>
           </li>
           <li>
-            <a href="#payroll-info-api" class="toc-h1 toc-link" data-title="Payroll Info API">Payroll Info API</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#http-request-3" class="toc-h2 toc-link" data-title="HTTP Request">HTTP Request</a>
-                  </li>
-                  <li>
-                    <a href="#arguments-3" class="toc-h2 toc-link" data-title="Arguments">Arguments</a>
-                  </li>
-                  <li>
-                    <a href="#response-3" class="toc-h2 toc-link" data-title="Response">Response</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#widget-installation" class="toc-h1 toc-link" data-title="Widget Installation">Widget Installation</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#config-parameters" class="toc-h2 toc-link" data-title="Config parameters">Config parameters</a>
                   </li>
                   <li>
-                    <a href="#response-4" class="toc-h2 toc-link" data-title="Response">Response</a>
+                    <a href="#response-3" class="toc-h2 toc-link" data-title="Response">Response</a>
                   </li>
               </ul>
           </li>
@@ -662,93 +648,6 @@ curl <span class="s2">"http://api.upwardfi.com/"</span> <span class="se">\</span
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"enrollment_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YtMXJzGzJcht38SCJuMhzC"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='payroll-info-api'>Payroll Info API</h1>
-<p>You can request to check payroll information before initiating payments through Upward.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET http://api.upwardfi.com/payroll-info</code></p>
-<h3 id='arguments-3'>Arguments</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>partner_product_id <em>required</em></td>
-<td>string</td>
-<td>Your product id as seen in your portal</td>
-</tr>
-<tr>
-<td>email <em>required</em></td>
-<td>string</td>
-<td>Email id of customer</td>
-</tr>
-<tr>
-<td>ssn <em>required</em></td>
-<td>string</td>
-<td>Social Security Number</td>
-</tr>
-<tr>
-<td>employer <em>optional</em></td>
-<td>string</td>
-<td>Customer employer name</td>
-</tr>
-<tr>
-<td>payment_compatible <em>optional</em></td>
-<td>string</td>
-<td>If true, we will return payroll data only where payments can be initiated.</td>
-</tr>
-<tr>
-<td>pay_data_duration <em>optional</em></td>
-<td>string</td>
-<td>Number of days of payroll history</td>
-</tr>
-<tr>
-<td>return_w2_data <em>optional</em></td>
-<td>boolean</td>
-<td>Specify true if customer w2 data must be returned</td>
-</tr>
-<tr>
-<td>return_paystubs <em>optional</em></td>
-<td>boolean</td>
-<td>Specify true if link to customer paystubs must be returned</td>
-</tr>
-</tbody></table>
-<h3 id='response-3'>Response</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>enrollment_id</td>
-<td>string</td>
-<td>Returns enrollment id.</td>
-</tr>
-</tbody></table>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://api.upwardfi.com/customer-enrollment"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization Bearer: base64(app_id:app_secret)"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  <span class="nt">-d</span> <span class="s1">$'{
-    "partner_product_id": "key_linked_to_partner_product",
-    "email": "xyz@abc.com",
-    "ssn": "123456789",
-    "employer": "Walmart",
-    "payment_compatible_only": "True",
-    "pay_data_duration": "60",
-    "return_w2_data": "True",
-    "return_paystubs": "True"
-  }'</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"enrollment_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YtMXJzGzJcht38SCJuMhzC"</span><span class="w">
-</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h1 id='widget-installation'>Widget Installation</h1>
 <p>Upward&#39;s widget is a front-end UI element that allows customers to grant your application access to their work accounts and to set up automated payments directly from their paychecks. It can be displayed on any part of your application.</p>
 <h3 id='config-parameters'>Config parameters</h3>
@@ -775,12 +674,12 @@ curl <span class="s2">"http://api.upwardfi.com/"</span> <span class="se">\</span
 <td>Enrollment key that is returned from calling the Customer Enrollment API</td>
 </tr>
 <tr>
-<td>distibutionAmount <em>optional</em></td>
+<td>distibutionAmount <em>required</em></td>
 <td>string</td>
 <td>Amount allocated from income towards your product.</td>
 </tr>
 </tbody></table>
-<h3 id='response-4'>Response</h3>
+<h3 id='response-3'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -794,24 +693,9 @@ curl <span class="s2">"http://api.upwardfi.com/"</span> <span class="se">\</span
 <td>unique customer id</td>
 </tr>
 <tr>
-<td>employment_data</td>
-<td>array</td>
-<td>list of customer profile info and employment history</td>
-</tr>
-<tr>
-<td>income_history</td>
-<td>array</td>
-<td>list of paycheck data</td>
-</tr>
-<tr>
-<td>direct_deposit</td>
-<td>array</td>
-<td>list of direct deposit accounts</td>
-</tr>
-<tr>
-<td>documents</td>
-<td>array</td>
-<td>list of links to document (w2/paystubs) locations</td>
+<td>status</td>
+<td>string</td>
+<td>response status</td>
 </tr>
 </tbody></table>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span><span class="o">&gt;</span>
@@ -839,88 +723,7 @@ curl <span class="s2">"http://api.upwardfi.com/"</span> <span class="se">\</span
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"customer_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"erj4021"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"employment_data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"payroll_account_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"suffix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr."</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"ssn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"dob"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1967-04-19"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suite 300 4400 TX-121"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lewisville"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"zip5"</span><span class="p">:</span><span class="w"> </span><span class="s2">"75056"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4696152114"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"phone_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mobile"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz@abc.com"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"employer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Walmart Inc"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cashier"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"gross_income_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"net_income_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"payment_frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Weekly"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"income_source_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Full-time"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-01"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"last_paid_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-16"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"employment_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"income-history"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"payroll_account_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"gross_amt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"610.80"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"net_amt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"560"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dollar"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"paid_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-02"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"payroll_account_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"gross_amt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"610.00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"net_amt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"560"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dollar"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"paid_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-09"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"payroll_account_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"gross_amt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"610.00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"net_amt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"560"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dollar"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"paid_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-16"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"direct-deposit-details"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"payroll_account_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"bank_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JPMorgan Chase"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Checking"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"routing_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"111000614"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"909000614"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"accnt_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"allocation_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Percent"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"allocation_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60.00"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"payroll_account_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"bank_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JPMorgan Chase"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Savings"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"routing_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"111000614"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"909000534"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"accnt_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"allocation_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Percent"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"allocation_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.00"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"documents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"payroll_account_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"document_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"W-2"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"document_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Static"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"customer_document_file_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3://path-to-file"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="w"> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h1 id='errors'>Errors</h1>
 <p>Our API returns standard HTTP success or error status codes. For errors, we will also include extra information about what went wrong encoded in the response as JSON. The various HTTP status codes we might return are listed below.</p>
