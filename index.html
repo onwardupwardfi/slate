@@ -282,7 +282,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-f626a096.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-08e222ef.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-a9fde460.js"></script>
 
@@ -383,15 +383,15 @@
 
 <p>If you need to authenticate via bearer auth (e.g., for a cross-origin request), use -H &quot;Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)&quot;</p>
 
-<p>curl -X GET https://api.upwardfi.com//accounts/193954b0-0ae8-5db7-b640-8110afe56438 \
-  -H &quot;Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)&quot;
-All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.</p>
-
 <blockquote>
 <p>Example Request:</p>
 </blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET https://api.upwardfi.com/enrollments <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"</span>
+</code></pre></div>
+<p>All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.</p>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"http://api.upwardfi.com/"</span> <span class="se">\</span>
+curl <span class="s2">"http://api.upwardfi.com/enrollments"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: your_api_key"</span>
 </code></pre></div><h1 id='rate-limiting'>Rate limiting</h1>
 <p>Upward&#39;s API are rate limited to prevent abuse that would degrade our ability to maintain consistent API performance for all users. By default, each API key or app is rate limited at 10,000 requests per hour. If your requests are being rate limited, HTTP response code 429 will be returned with an rate_limit_exceeded error.</p>
@@ -437,7 +437,7 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 <h1 id='customer-enrollment-api'>Customer Enrollment API</h1>
 <p>This API initiates customer enrollment via Upward.By passing basic customer information Upward will return an enrollment key unique to the customer and current enrollment.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST http://api.upwardfi.com/customer-enrollment</code></p>
+<p><code>POST http://api.upwardfi.com/enrollments</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -447,137 +447,137 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 </tr>
 </thead><tbody>
 <tr>
-<td>email <em>required</em></td>
+<td><code>email</code> <em>required</em></td>
 <td>string</td>
 <td>Email id of customer</td>
 </tr>
 <tr>
-<td>first_name <em>required</em></td>
+<td><code>first_name</code> <em>required</em></td>
 <td>string</td>
 <td>First Name</td>
 </tr>
 <tr>
-<td>last_name <em>required</em></td>
+<td><code>last_name</code> <em>required</em></td>
 <td>string</td>
 <td>Last Name</td>
 </tr>
 <tr>
-<td>ssn <em>required</em></td>
+<td><code>ssn</code> <em>required</em></td>
 <td>string</td>
 <td>Social Security Number</td>
 </tr>
 <tr>
-<td>street <em>required</em></td>
+<td><code>street</code> <em>required</em></td>
 <td>string</td>
 <td>Street address</td>
 </tr>
 <tr>
-<td>city <em>required</em></td>
+<td><code>city</code> <em>required</em></td>
 <td>string</td>
 <td>City</td>
 </tr>
 <tr>
-<td>state <em>required</em></td>
+<td><code>state</code> <em>required</em></td>
 <td>string</td>
 <td>State</td>
 </tr>
 <tr>
-<td>zip5 <em>required</em></td>
+<td><code>zip5</code> <em>required</em></td>
 <td>string</td>
 <td>Zip code</td>
 </tr>
 <tr>
-<td>country <em>required</em></td>
+<td><code>country</code> <em>required</em></td>
 <td>string</td>
 <td>Country</td>
 </tr>
 <tr>
-<td>partner_product_id <em>required</em></td>
+<td><code>partner_product_id</code> <em>required</em></td>
 <td>string</td>
 <td>Your product id as seen in your portal</td>
 </tr>
 <tr>
-<td>employer <em>optional</em></td>
+<td><code>employer</code> <em>optional</em></td>
 <td>string</td>
 <td>Customer employer name</td>
 </tr>
 <tr>
-<td>phone_number <em>optional</em></td>
+<td><code>phone_number</code> <em>optional</em></td>
 <td>string</td>
 <td>Phone number</td>
 </tr>
 <tr>
-<td>date_of_birth <em>optional</em></td>
+<td><code>date_of_birth</code> <em>optional</em></td>
 <td>string</td>
 <td>Date of birth</td>
 </tr>
 <tr>
-<td>payment_amount <em>optional</em></td>
+<td><code>payment_amount</code> <em>optional</em></td>
 <td>string</td>
 <td>Recurring amount to be paid to you by the customer</td>
 </tr>
 <tr>
-<td>payment_frequency <em>optional</em></td>
+<td><code>payment_frequency</code> <em>optional</em></td>
 <td>string</td>
 <td>Frequency interval that customer will make payments</td>
 </tr>
 <tr>
-<td>first_payment_date <em>optional</em></td>
+<td><code>first_payment_date</code> <em>optional</em></td>
 <td>string</td>
 <td>Date of first payment</td>
 </tr>
 <tr>
-<td>application_reference_number <em>optional</em></td>
+<td><code>application_reference_number</code> <em>optional</em></td>
 <td>string</td>
 <td>Loan application number</td>
 </tr>
 <tr>
-<td>account_reference_number <em>optional</em></td>
+<td><code>account_reference_number</code> <em>optional</em></td>
 <td>string</td>
 <td>Your account reference number</td>
 </tr>
 <tr>
-<td>bank_routing_number <em>optional</em></td>
+<td><code>bank_routing_number</code> <em>optional</em></td>
 <td>string</td>
 <td>Your bank routing number</td>
 </tr>
 <tr>
-<td>bank_account_number <em>optional</em></td>
+<td><code>bank_account_number</code> <em>optional</em></td>
 <td>string</td>
 <td>Your bank account number</td>
 </tr>
 <tr>
-<td>bank_account_type <em>optional</em></td>
+<td><code>bank_account_type</code> <em>optional</em></td>
 <td>string</td>
 <td>Your bank account type</td>
 </tr>
 <tr>
-<td>days_until_expires <em>optional</em></td>
+<td><code>days_until_expires</code> <em>optional</em></td>
 <td>string</td>
 <td>Number of days before this enrollment request expires</td>
 </tr>
 <tr>
-<td>required_employment_start_date <em>optional</em></td>
+<td><code>required_employment_start_date</code> <em>optional</em></td>
 <td>string</td>
 <td>start date of employment</td>
 </tr>
 <tr>
-<td>required_gross_income <em>optional</em></td>
+<td><code>required_gross_income</code> <em>optional</em></td>
 <td>number</td>
 <td>customer gross income</td>
 </tr>
 <tr>
-<td>required_net_income <em>optional</em></td>
+<td><code>required_net_income</code> <em>optional</em></td>
 <td>number</td>
 <td>customer net income</td>
 </tr>
 <tr>
-<td>return_w2_data <em>optional</em></td>
+<td><code>return_w2_data</code> <em>optional</em></td>
 <td>boolean</td>
 <td>Specify true if customer w2 data must be returned</td>
 </tr>
 <tr>
-<td>return_paystubs <em>optional</em></td>
+<td><code>return_paystubs</code> <em>optional</em></td>
 <td>boolean</td>
 <td>Specify true if link to customer paystubs must be returned</td>
 </tr>
@@ -591,12 +591,12 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 </tr>
 </thead><tbody>
 <tr>
-<td>enrollment_id</td>
+<td><code>enrollment_id</code></td>
 <td>string</td>
 <td>Returns enrollment id.</td>
 </tr>
 </tbody></table>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://api.upwardfi.com/customer-enrollment"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://api.upwardfi.com/enrollments"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization Bearer: base64(app_id:app_secret)"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">$'{
@@ -610,7 +610,7 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
     "zip5": "75056",
     "country": "USA",
     "email": "xyz@abc.com",
-    "payment_amt": 200.00
+    "payment_amount": 200.00
   }'</span>
 </code></pre></div>
 <blockquote>
@@ -630,22 +630,22 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 </tr>
 </thead><tbody>
 <tr>
-<td>pluginKey <em>required</em></td>
+<td><code>plugin_key</code> <em>required</em></td>
 <td>string</td>
 <td>unique key corresponding to their application</td>
 </tr>
 <tr>
-<td>apiHost <em>required</em></td>
+<td><code>api_host</code> <em>required</em></td>
 <td>string</td>
 <td>Link to API environment (Sandbox/Production)</td>
 </tr>
 <tr>
-<td>enrollmentId <em>required</em></td>
+<td><code>enrollment_id</code> <em>required</em></td>
 <td>string</td>
 <td>Enrollment key that is returned from calling the Customer Enrollment API</td>
 </tr>
 <tr>
-<td>distibutionAmount <em>required</em></td>
+<td><code>distribution_amount</code> <em>required</em></td>
 <td>string</td>
 <td>Amount allocated from income towards your product.</td>
 </tr>
@@ -667,10 +667,10 @@ status | string | response status -->
 </span>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">https://api.upwardfi.com/upward-link.js</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
 </span>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="o">&gt;</span>
     <span class="nx">upwardLink</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-      <span class="na">pluginKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">your_plugin_key</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">apiHost</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api-sandbox.upwardfi.com</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">enrollmentId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">key_from_enrollment_api</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">distibutionAmount</span><span class="p">:</span> <span class="dl">'</span><span class="s1">distribution_dollar_amount</span><span class="dl">'</span>
+      <span class="na">plugin_key</span><span class="p">:</span> <span class="dl">'</span><span class="s1">your_plugin_key</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">api_host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api-sandbox.upwardfi.com</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">enrollment_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">key_from_enrollment_api</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">distribution_amount</span><span class="p">:</span> <span class="dl">'</span><span class="s1">distribution_dollar_amount</span><span class="dl">'</span>
     <span class="p">});</span>
     <span class="nx">upwardLink</span><span class="p">.</span><span class="nx">open</span><span class="p">();</span>
   <span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
