@@ -43,7 +43,7 @@ Test mode secret keys have the prefix sk_test_ and live mode secret keys have th
 
 Authentication to the API is performed via HTTP Basic Auth. Provide your API key as the basic auth username value. You do not need to provide a password.
 
-If you need to authenticate via bearer auth (e.g., for a cross-origin request), use -H "Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"
+> If you need to authenticate via bearer auth (e.g., for a cross-origin request), use -H "Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"
 
 > Example Request:
 
@@ -52,7 +52,7 @@ curl -X GET https://api.upwardfi.com/enrollments \
   -H "Authorization: Bearer base64(ai_test_app_id:sk_test_8fD39MqLyjWBarjtP1zdp7bc)"
   ```
 
-All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
+> All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
 
 ```shell
 # With shell, you can just pass the correct header with each request
