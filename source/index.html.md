@@ -188,7 +188,6 @@ Parameter | Type | Description
 `plugin_key` *required* | string | unique key corresponding to their application
 `api_host` *required* | string | Link to API environment (Sandbox/Production)
 `enrollment_id` *required* | string | Enrollment key that is returned from calling the Customer Enrollment API
-`distribution_amount` *required* | string | Amount allocated from income towards your product.
 
 <!-- ### Response -->
 
@@ -210,8 +209,7 @@ status | string | response status -->
     upwardLink.create({
       plugin_key: 'your_plugin_key',
       api_host: 'https://api-sandbox.upwardfi.com',
-      enrollment_id: 'key_from_enrollment_api',
-      distribution_amount: 'distribution_dollar_amount'
+      enrollment_id: 'key_from_enrollment_api'
     });
     upwardLink.open();
   </script>
