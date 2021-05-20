@@ -115,19 +115,8 @@ This API initiates customer enrollment via Upward.By passing basic customer info
 
 Parameter | Type | Description
 --------- | ------- | -----------
-`email` *required* | string | Email id of customer
-`first_name` *required* |string | First Name
-`last_name` *required* | string | Last Name
-`ssn` *required* | string | Social Security Number
-`street` *required* | string | Street address
-`city` *required* | string | City
-`state` *required* | string | State
-`zip5` *required* | string | Zip code
-`country` *required* | string | Country
-`partner_product_id` *required* | string | Your product id as seen in your portal
-`employer` *optional* | string | Customer employer name
-`phone_number` *optional* | string | Phone number
-`date_of_birth` *optional* | string | Date of birth
+`customers` *required* | array | list of customer details linked to this enrollment
+<!-- `partner_product_id` *required* | string | Your product id as seen in your portal -->
 `payment_amount` *optional* | string | Recurring amount to be paid to you by the customer
 `payment_frequency` *optional* | string | Frequency interval that customer will make payments
 `first_payment_date` *optional* | string | Date of first payment
@@ -143,6 +132,23 @@ Parameter | Type | Description
 `return_w2_data` *optional* | boolean | Specify true if customer w2 data must be returned
 `return_paystubs` *optional* | boolean | Specify true if link to customer paystubs must be returned
 
+The `customers` field will be a list of the following fields:
+
+Parameter | Type | Description
+--------- | ------- | -----------
+`email` *required* | string | Email id of customer
+`first_name` *required* |string | First Name
+`last_name` *required* | string | Last Name
+`ssn` *required* | string | Social Security Number
+`street` *required* | string | Street address
+`city` *required* | string | City
+`state` *required* | string | State
+`zip5` *required* | string | Zip code
+`country` *required* | string | Country
+`employer` *optional* | string | Customer employer name
+`phone_number` *optional* | string | Phone number
+`date_of_birth` *optional* | string | Date of birth
+
 ### Response
 
 Parameter | Type | Description
@@ -155,8 +161,7 @@ curl "http://api.upwardfi.com/enrollments" \
   -H "Authorization Bearer: base64(app_id:app_secret)" \
   -H "Content-Type: application/json" \
   -d $'{
-    "partner_product_id": "key_linked_to_partner_product",
-    "first_name": "John",
+    "customers": [{"first_name": "John",
     "last_name": "Doe",
     "ssn": "123456789",
     “street": "Suite 300, 400 TX-121",
@@ -164,7 +169,7 @@ curl "http://api.upwardfi.com/enrollments" \
     "state": "TX",
     "zip5": "75056",
     "country": "USA",
-    "email": "xyz@abc.com",
+    "email": "xyz@abc.com"}],
     "payment_amount": 200.00
   }'
 ```
