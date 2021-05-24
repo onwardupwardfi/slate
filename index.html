@@ -764,25 +764,21 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 --------- | ------- | -----------
 customer_id | string | unique customer id
 status | string | response status -->
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">charset</span><span class="o">=</span><span class="dl">"</span><span class="s2">utf-8</span><span class="dl">"</span> <span class="o">/&gt;</span>
-<span class="o">&lt;</span><span class="sr">/head</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">upward</span><span class="o">-</span><span class="nx">link</span><span class="o">&gt;&lt;</span><span class="sr">/upward-link</span><span class="err">&gt;
-</span>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">https://api.upwardfi.com/upward-link.js</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
-</span>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="o">&gt;</span>
-    <span class="nx">upwardLink</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-      <span class="na">plugin_key</span><span class="p">:</span> <span class="dl">'</span><span class="s1">your_plugin_key</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">api_host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api-sandbox.upwardfi.com</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">enrollment_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">key_from_enrollment_api</span><span class="dl">'</span>
-    <span class="p">});</span>
-    <span class="nx">upwardLink</span><span class="p">.</span><span class="nx">open</span><span class="p">();</span>
-  <span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="sr">/body</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="sr">/html</span><span class="err">&gt;
-</span></code></pre></div>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">upwardLink</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="na">plugin_key</span><span class="p">:</span> <span class="dl">'</span><span class="s1">your_plugin_key</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">api_host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api-sandbox.upwardfi.com</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">enrollment_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">key_from_enrollment_api</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">on_success</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">on_success!</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">},</span>
+  <span class="na">on_error</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">on_error!</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">},</span>
+  <span class="na">on_close</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">on_close!</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span> 
+</code></pre></div>
 <!-- > The above command returns JSON structured like this:
 
 ```json
