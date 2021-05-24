@@ -105,7 +105,7 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 
 # Customer Enrollment API
 
-This API initiates customer enrollment via Upward.By passing basic customer information Upward will return an enrollment key unique to the customer and current enrollment.
+This API initiates customer enrollment via Upward.By passing basic enrollment information Upward will return an enrollment key unique to the enrollment.
 
 ### HTTP Request
 
@@ -115,16 +115,15 @@ This API initiates customer enrollment via Upward.By passing basic customer info
 
 Parameter | Type | Description
 --------- | ------- | -----------
-`customers` *required* | array | list of customer details linked to this enrollment
 <!-- `partner_product_id` *required* | string | Your product id as seen in your portal -->
 `payment_amount` *optional* | string | Recurring amount to be paid to you by the customer
 `payment_frequency` *optional* | string | Frequency interval that customer will make payments
 `first_payment_date` *optional* | string | Date of first payment
 `application_reference_number` *optional* | string | Loan application number
 `account_reference_number` *optional* | string | Your account reference number
-`bank_routing_number` *optional* | string | Your bank routing number
+<!-- `bank_routing_number` *optional* | string | Your bank routing number
 `bank_account_number` *optional* | string | Your bank account number
-`bank_account_type` *optional* | string | Your bank account type
+`bank_account_type` *optional* | string | Your bank account type -->
 `days_until_expires` *optional* | string | Number of days before this enrollment request expires
 `required_employment_start_date` *optional* | string | start date of employment
 `required_gross_income` *optional* | number | customer gross income
@@ -132,10 +131,43 @@ Parameter | Type | Description
 `return_w2_data` *optional* | boolean | Specify true if customer w2 data must be returned
 `return_paystubs` *optional* | boolean | Specify true if link to customer paystubs must be returned
 
-The `customers` field will be a list of the following fields:
+### Response
 
 Parameter | Type | Description
 --------- | ------- | -----------
+`enrollment_id` | string | Returns enrollment id.
+
+
+```shell
+curl "http://api.upwardfi.com/enrollments" \
+  -H "Authorization Bearer: base64(app_id:app_secret)" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "payment_amount": 200.00
+  }'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
+}
+```
+
+# Customer Enrollment User API
+
+This API adds a user to a customer enrollment via Upward.By passing basic customer information Upward will return an enrollment key unique to the user based on the provided enrollment.
+
+### HTTP Request
+
+`POST http://api.upwardfi.com/enrollments/{enrollment_id}/users`
+
+### Arguments
+
+Parameter | Type | Description
+--------- | ------- | -----------
+`username` *required* | string | username for user
 `email` *required* | string | Email id of customer
 `first_name` *required* |string | First Name
 `last_name` *required* | string | Last Name
@@ -153,24 +185,15 @@ Parameter | Type | Description
 
 Parameter | Type | Description
 --------- | ------- | -----------
-`enrollment_id` | string | Returns enrollment id.
+`user_id` | string | Returns user id.
 
 
 ```shell
-curl "http://api.upwardfi.com/enrollments" \
+curl "http://api.upwardfi.com/enrollments/YtMXJzGzJcht38SCJuMhzC/users" \
   -H "Authorization Bearer: base64(app_id:app_secret)" \
   -H "Content-Type: application/json" \
   -d $'{
-    "customers": [{"first_name": "John",
-    "last_name": "Doe",
-    "ssn": "123456789",
-    “street": "Suite 300, 400 TX-121",
-    "city": "Lewisville",
-    "state": "TX",
-    "zip5": "75056",
-    "country": "USA",
-    "email": "xyz@abc.com"}],
-    "payment_amount": 200.00
+    "username": "john_smith"
   }'
 ```
 
@@ -178,7 +201,48 @@ curl "http://api.upwardfi.com/enrollments" \
 
 ```json
 {
-  "enrollment_id": "YtMXJzGzJcht38SCJuMhzC"
+  "user_id": "38SCJuMhzCYtMXJzGzJcht"
+}
+```
+
+# Customer Enrollment Bank Account API
+
+This API adds a bank account to a customer enrollment via Upward.By passing basic bank account information Upward will return an bank account key unique to the user based on the user id.
+
+### HTTP Request
+
+`POST http://api.upwardfi.com/users/{user_id}/bank_accounts`
+
+### Arguments
+
+Parameter | Type | Description
+--------- | ------- | -----------
+`account_number` *required* |string | Account Number
+`routing_number` *required* | string | Routing Number
+`account_type` *required* | string | Type of Account (checking, savings, etc)
+`bank_name` *required* | string | Name of Bank
+
+### Response
+
+Parameter | Type | Description
+--------- | ------- | -----------
+`bank_account_id` | string | Returns bank account id.
+
+
+```shell
+curl "http://api.upwardfi.com/users/38SCJuMhzCYtMXJzGzJcht/bank_accounts" \
+  -H "Authorization Bearer: base64(app_id:app_secret)" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "account_number": "874038933"
+  }'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "bank_account_id": "GzJcht38SCJuMhzCYtMXJz"
 }
 ```
 
