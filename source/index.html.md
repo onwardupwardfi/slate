@@ -115,7 +115,6 @@ This API initiates customer enrollment via Upward.By passing basic enrollment in
 
 Parameter | Type | Description
 --------- | ------- | -----------
-
 `payment_amount` *optional* | string | Recurring amount to be paid to you by the customer
 `payment_frequency` *optional* | string | Frequency interval that customer will make payments
 `first_payment_date` *optional* | string | Date of first payment
