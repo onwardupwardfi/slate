@@ -276,12 +276,21 @@ status | string | response status -->
   <upward-link></upward-link>
   <script src="https://api.upwardfi.com/upward-link.js"></script>
   <script type="text/javascript">
-    upwardLink.create({
-      plugin_key: 'your_plugin_key',
-      api_host: 'https://api-sandbox.upwardfi.com',
-      enrollment_id: 'key_from_enrollment_api'
+  upwardLink.create({
+    plugin_key: 'your_plugin_key',
+    api_host: 'https://api-sandbox.upwardfi.com',
+    enrollment_id: 'key_from_enrollment_api',
+    on_success: () = > {
+    console.log('on_success!');
+    },
+    on_error: () = > {
+    console.log('on_error!');
+    },
+    on_close: () = > {
+    console.log('on_close!');
+    }
     });
-    upwardLink.open();
+  upwardLink.open();
   </script>
 </body>
 </html>
