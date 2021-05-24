@@ -478,11 +478,6 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 </tr>
 </thead><tbody>
 <tr>
-<td>&lt;!-- <code>partner_product_id</code> <em>required</em></td>
-<td>string</td>
-<td>Your product id as seen in your portal --&gt;</td>
-</tr>
-<tr>
 <td><code>payment_amount</code> <em>optional</em></td>
 <td>string</td>
 <td>Recurring amount to be paid to you by the customer</td>
@@ -506,21 +501,6 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 <td><code>account_reference_number</code> <em>optional</em></td>
 <td>string</td>
 <td>Your account reference number</td>
-</tr>
-<tr>
-<td>&lt;!-- <code>bank_routing_number</code> <em>optional</em></td>
-<td>string</td>
-<td>Your bank routing number</td>
-</tr>
-<tr>
-<td><code>bank_account_number</code> <em>optional</em></td>
-<td>string</td>
-<td>Your bank account number</td>
-</tr>
-<tr>
-<td><code>bank_account_type</code> <em>optional</em></td>
-<td>string</td>
-<td>Your bank account type --&gt;</td>
 </tr>
 <tr>
 <td><code>days_until_expires</code> <em>optional</em></td>
@@ -553,6 +533,12 @@ curl "http://api.upwardfi.com/check-employer-eligibility" \
 <td>Specify true if link to customer paystubs must be returned</td>
 </tr>
 </tbody></table>
+
+<!-- `partner_product_id` *required* | string | Your product id as seen in your portal -->
+
+<!-- `bank_routing_number` *optional* | string | Your bank routing number
+`bank_account_number` *optional* | string | Your bank account number
+`bank_account_type` *optional* | string | Your bank account type -->
 <h3 id='response'>Response</h3>
 <table><thead>
 <tr>
