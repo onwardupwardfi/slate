@@ -115,21 +115,23 @@ This API initiates customer enrollment via Upward.By passing basic enrollment in
 
 Parameter | Type | Description
 --------- | ------- | -----------
-<!-- `partner_product_id` *required* | string | Your product id as seen in your portal -->
+
 `payment_amount` *optional* | string | Recurring amount to be paid to you by the customer
 `payment_frequency` *optional* | string | Frequency interval that customer will make payments
 `first_payment_date` *optional* | string | Date of first payment
 `application_reference_number` *optional* | string | Loan application number
 `account_reference_number` *optional* | string | Your account reference number
-<!-- `bank_routing_number` *optional* | string | Your bank routing number
-`bank_account_number` *optional* | string | Your bank account number
-`bank_account_type` *optional* | string | Your bank account type -->
 `days_until_expires` *optional* | string | Number of days before this enrollment request expires
 `required_employment_start_date` *optional* | string | start date of employment
 `required_gross_income` *optional* | number | customer gross income
 `required_net_income` *optional* | number | customer net income
 `return_w2_data` *optional* | boolean | Specify true if customer w2 data must be returned
 `return_paystubs` *optional* | boolean | Specify true if link to customer paystubs must be returned
+
+<!-- `partner_product_id` *required* | string | Your product id as seen in your portal -->
+<!-- `bank_routing_number` *optional* | string | Your bank routing number
+`bank_account_number` *optional* | string | Your bank account number
+`bank_account_type` *optional* | string | Your bank account type -->
 
 ### Response
 
